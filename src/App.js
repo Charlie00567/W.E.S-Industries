@@ -69,7 +69,7 @@ function App() {
     }
   };
 
-  useEffect(()=>{runCoco()},[]);
+  // useEffect(()=>{runCoco()},[]);
 
   return (
     <div className="App">
