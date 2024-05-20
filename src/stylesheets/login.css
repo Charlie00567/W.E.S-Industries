@@ -1,0 +1,75 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.faceio_button {
+    display: none;
+}
+
+.faceio_button.active {
+    display: block;
+
+    height: 60px;
+    width: 300px;
+
+    border: none;
+    border-radius: 15px;
+
+    margin: 30px 0;
+
+    font-size: 18px;  
+    background-color: #f0f0f0;  
+
+}
+
+.faceio_button.active:hover {
+    background-color: #545f5d;
+    color: #f0f0f0;
+}
+
+.componentes.active {
+    display: flex;
+    flex-direction: row;
+}
+
+.componentes {
+    display: none;
+}
+
+.logo {
+    width: 50%;
+    height: 100vh;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFF;    
+}
+
+.image-logo {
+    /* background-color: aqua; */
+    height: 50%;
+    width: 50%;
+    background-image: url('../assets/logo_light_mode.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.buttons {
+    width: 50%;
+    height: 100vh;
+    background-color: #8AA8A1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;    
+}
+
+.title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 50px;
+}
+

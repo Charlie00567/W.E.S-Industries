@@ -9,12 +9,16 @@
       name="description"
       content="Web site created using create-react-app"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,200;0,300;1,200&display=swap" rel="stylesheet">
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!-- <link rel="stylesheet" href="../src/stylesheets/login.css"> -->
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -39,5 +43,78 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+    <div class="componentes active">
+      <div class="logo">  
+        <div class="image-logo"></div>
+      </div>
+  
+      <div class="buttons">
+        <div class="title">W.E.S. INDUSTRIES</div>
+        <button onclick="authenticateUser()" class="faceio_button active">Iniciar Sesión</button>
+        <button onclick="enrollNewUser()" class="faceio_button active">Crear cuenta</button>              
+      </div>
+    </div>
+    
+    
+    <div id="faceio-modal"></div>
+    <script src="https://cdn.faceio.net/fio.js"></script>
+    <script type="text/javascript">
+        // Instantiate fio.js with your application Public ID
+        const faceio = new faceIO("fioa3c01");
+        function enrollNewUser() {
+            // Start the facial enrollment process
+            faceio.enroll({
+                "locale": "auto", // Default user locale
+                "payload": {
+                    /* The payload we want to associate with this user
+                    * which is forwarded back to us upon future
+                    * authentication of this particular user.*/
+                    "whoami": 123456, // Example of dummy ID linked to this particular user
+                    "email": "john.doe@example.com"
+                }
+            }).then(userInfo => {
+                // User Successfully Enrolled!
+                alert(
+                    `User Successfully Enrolled! Details:
+                    Unique Facial ID: ${userInfo.facialId}
+                    Enrollment Date: ${userInfo.timestamp}
+                    Gender: ${userInfo.details.gender}
+                    Age Approximation: ${userInfo.details.age}`
+                );
+                console.log(userInfo);
+                window.location.href = "/home"
+                // handle success, save the facial ID, redirect to dashboard...
+            }).catch(errCode => {
+                // handle enrollment failure. Visit:
+                // https://faceio.net/integration-guide#error-codes
+                // for the list of all possible error codes
+            })
+        }
+        function authenticateUser() {
+            // Authenticate a previously enrolled user
+            faceio.authenticate({
+                "locale": "auto" // Default user locale
+            }).then(userData => {
+                console.log("Success, user identified")
+                // Grab the facial ID linked to this particular user which will be same
+                // for each of his successful future authentication. FACEIO recommend 
+                // that your rely on this Facial ID if you plan to uniquely identify 
+                // all enrolled users on your backend for example.
+                console.log("Linked facial Id: " + userData.facialId)
+                // Grab the arbitrary data you have already linked (if any) to this particular user
+                // during his enrollment via the payload parameter of the enroll() method.
+                console.log("Payload: " + JSON.stringify(userData.payload))
+                // {"whoami": 123456, "email": "john.doe@example.com"} set via enroll()
+                window.location.href = "/home"
+            }).catch(errCode => {
+                // handle authentication failure. Visit:
+                // https://faceio.net/integration-guide#error-codes
+                // for the list of all possible error codes
+            })
+        }
+    </script>
+
+
   </body>
 </html>
