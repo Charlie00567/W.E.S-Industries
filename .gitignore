@@ -3,6 +3,8 @@
 # dependencies
 /node_modules
 /.pnp
+# Entorno de app
+/venv
 .pnp.js
 
 # testing
